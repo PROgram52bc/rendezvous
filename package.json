@@ -1,0 +1,30 @@
+{
+  "name": "rendezvous",
+  "version": "1.0.0",
+  "description": "A COS243 project",
+  "main": "index.js",
+  "dependencies": {
+    "hapi": "^17.8.1",
+    "knex": "^0.15.2",
+    "objection": "^1.4.0",
+    "pg": "^7.7.1",
+    "vuejs": "^3.0.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PROgram52bc/rendezvous.git"
+  },
+  "keywords": [
+    "scheduling"
+  ],
+  "author": "Nathan Margosi, David Deng",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/PROgram52bc/rendezvous/issues"
+  },
+  "homepage": "https://github.com/PROgram52bc/rendezvous#readme"
+}
