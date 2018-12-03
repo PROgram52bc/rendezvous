@@ -5,9 +5,13 @@
   "main": "index.js",
   "dependencies": {
     "hapi": "^17.8.1",
+    "inert": "^5.1.2",
+    "joi": "^13.7.0",
     "knex": "^0.15.2",
+    "lout": "^11.1.0",
     "objection": "^1.4.0",
     "pg": "^7.7.1",
+    "vision": "^5.4.3",
     "vuejs": "^3.0.1"
   },
   "devDependencies": {},
