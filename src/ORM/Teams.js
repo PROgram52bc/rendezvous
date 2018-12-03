@@ -16,7 +16,7 @@ class Teams extends Model {
 						from: 'member_team.t_id',
 						to: 'member_team.m_id'
 					},
-					to: 'member.m_id'
+					to: 'members.m_id'
 				}
 			}
 		};

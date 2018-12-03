@@ -6,12 +6,16 @@ class Members extends Model {
 	}
 	static get relationMappings() {
 		return {
-			member_team: {
-				relation: Model.BelongsToOneRelation,
-				modelClass: require('./Member_team'),
+			teams: {
+				relation: Model.ManyToManyRelation,
+				modelClass: require('./Teams'),
 				join: {
 					from: 'members.m_id',
-					to: 'member_team.m_id'
+					through: {
+						from: 'member_team.m_id',
+						to: 'member_team.t_id'
+					},
+					to: 'teams.t_id'
 				}
 			}
 		};

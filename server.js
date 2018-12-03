@@ -9,7 +9,8 @@ const knex = require('knex')({
         database: "david_deng",
 		user: "david_deng",
 		password: "wowaqufa"
-    }
+    },
+	debug: true
 });
 // */
 
@@ -51,6 +52,44 @@ server.route([
 				.select("*");
 		}
 	},
+	{
+		method: "GET",
+		path: "/members/{m_id}",
+		config: {
+			description: "Retrieve info about one member"
+		},
+		handler: async (request, h) => {
+			return Members
+				.query()
+				.select("*")
+				.where("m_id", request.params.m_id)
+				.eager('teams');
+		}
+	},
+	/*
+	{
+		method: "GET",
+		path: "/members/{m_id}/teams",
+		config: {
+			description: "Retrieve all teams that a member has joined"
+		},
+		handler: async (request, h) => {
+			return 0;
+		}
+	},
+	*/
+	/* New route template
+	{
+		method: "",
+		path: "",
+		config: {
+			description: ""
+		},
+		handler: async (request, h) => {
+			return 0;
+		}
+	},
+	*/
 	/* New route template
 	{
 		method: "",
