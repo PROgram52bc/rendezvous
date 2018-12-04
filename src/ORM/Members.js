@@ -17,6 +17,15 @@ class Members extends Model {
 					},
 					to: 'teams.t_id'
 				}
+			},
+			
+			core_hours: {
+				relation: Model.HasManyRelation,
+				modelClass: require('./Corehours'),
+				join: {
+					from: 'members.m_id',
+					to: 'core_hours.m_id'
+				}
 			}
 		};
 	}
