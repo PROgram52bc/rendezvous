@@ -38,7 +38,7 @@ async function generateSchema() {
 		table.integer('weekday'); // 0-6
 		table.time('start_time');
 		table.time('end_time');
-		table.foreign('m_id').references('m_id').inTable('users');
+		table.foreign('m_id').references('m_id').inTable('members');
 	});
 	console.log(`table core_hours created`);
 
@@ -55,7 +55,7 @@ async function generateSchema() {
 		table.timestamp('end_time', true); // no timezone
 		table.enu('repeat_unit', ['D','W','M','Y']);
 		table.date('terminate_date');
-		table.foreign('m_id').references('m_id').inTable('users');
+		table.foreign('m_id').references('m_id').inTable('members');
 	});
 	console.log(`table commitments created`);
 
@@ -210,6 +210,24 @@ async function insert() {
 				t_id: 1,
 				m_id: 4
 			},
+		]
+	);
+	await knex('core_hours').insert(
+		[
+			{
+				ch_id: 300,
+				m_id: 1,
+				weekday: 0,
+				start_time: "4:00",
+				end_time: "6:00"
+			},
+			{
+				ch_id: 400,
+				m_id: 2,
+				weekday: 1,
+				start_time: "5:00",
+				end_time: "8:00"
+			}
 		]
 	);
 }
