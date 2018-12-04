@@ -28,8 +28,29 @@ const server = Hapi.server({
 	port: 3000
 });
 
+// setting up Boom for error
+const Boom = require('boom');
+
 // add routes to the server
 server.route([
+	{
+		method: "POST",
+		path: "/login",
+		config: {
+			description: "Get the userid based on username and password"
+		},
+		handler: async (request, h) => {
+			let rows = await Members.query()
+			.where('email', request.payload.email)
+			.andWhere('password', request.payload.password)
+			if (rows.length == 0)
+			{
+				throw Boom.badRequest('Email or password incorrect.');
+			}
+			else
+				return rows[0].m_id;
+		}
+	},
 	{
 		method: "GET",
 		path: "/hello",

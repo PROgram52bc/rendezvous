@@ -4,6 +4,10 @@
   "description": "A COS243 project",
   "main": "index.js",
   "dependencies": {
+    "@vue/cli-service": "^3.2.0",
+    "axios": "^0.18.0",
+    "boom": "^7.3.0",
+    "bulma": "^0.7.2",
     "hapi": "^17.8.1",
     "inert": "^5.1.2",
     "joi": "^13.7.0",
@@ -13,14 +17,17 @@
     "pg": "^7.7.1",
     "vision": "^5.4.3",
     "vue": "^2.5.17",
-    "vue-router": "^3.0.2"
+    "vue-router": "^3.0.2",
+    "vue-template-compiler": "^2.5.17"
   },
   "devDependencies": {
     "nodemon": "^1.18.7"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "hapi": "node server.js"
+    "hapi": "node server.js",
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build"
   },
   "repository": {
     "type": "git",
@@ -29,7 +36,7 @@
   "keywords": [
     "scheduling"
   ],
-  "author": "Nathan Margosi, David Deng",
+  "author": "Nathan Margosian, David Deng",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/PROgram52bc/rendezvous/issues"
