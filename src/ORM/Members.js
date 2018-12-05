@@ -19,7 +19,7 @@ class Members extends Model {
 				}
 			},
 			core_hours: {
-				relation: Model.HasManyRelations,
+				relation: Model.HasManyRelation,
 				modelClass: require('./Corehours'),
 				join: {
 					from: 'members.m_id',
@@ -27,7 +27,7 @@ class Members extends Model {
 				}
 			},
 			commitments: {
-				relation: Model.HasManyRelations,
+				relation: Model.HasManyRelation,
 				modelClass: require('./Commitments'),
 				join: {
 					from: 'members.m_id',
@@ -47,7 +47,7 @@ class Members extends Model {
 				}
 			},
 			member_proposed_time: {
-				relation: Model.HasManyRelations,
+				relation: Model.HasManyRelation,
 				modelClass: require('./MemberProposedTime'),
 				join: {
 					from: 'members.m_id',

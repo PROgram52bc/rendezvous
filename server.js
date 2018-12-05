@@ -27,8 +27,8 @@ const MemberProposedTime = require('./src/ORM/MemberProposedTime');
 const ProposedTimes = require('./src/ORM/ProposedTimes');
 
 // setting up server
-const Joi = require('joi');
-const Hapi = require('hapi');
+const Joi = require("joi"); 	//Input validation
+const Hapi = require('hapi');	//Server
 const server = Hapi.server({
 	host: 'localhost',
 	port: 3000
@@ -83,6 +83,20 @@ server.route([
 				.eager('teams');
 		}
 	},
+	{
+		method: "GET",
+		path: "/members/core-hours/{m_id}",
+		config: {
+			description: "Get one member's core-hours",
+		},
+		handler: async (request, h) => {
+			return Corehours.query()
+				.select("*")
+				.where("m_id", request.params.m_id);
+		}
+	},
+
+	/*
 	{
 		method: "GET",
 		path: "/members/core-hours/{m_id}",
