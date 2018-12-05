@@ -97,27 +97,26 @@ server.route([
 		}
 	},
 	{
-		//NEEDS TO BE EDITED
 		method: "PUT",
-		path: "/members/core-hours/{m_id}",
+		path: "/members/{m_id}/core-hours/{ch_id}",
 		config: {
 			description: "Change a member's core-hours",
 		},
 		handler: async (request, h) => {
-			return "core-hours put";
-			/*Corehours
+			return Corehours
 				.query()
-				.where("ch_id", request.payload.ch_id);
+				.where("ch_id", request.params.ch_id)
+				.andWhere("m_id", request.params.m_id)
 				.update({
 					weekday: request.payload.weekday,
 					start_time: request.payload.start_time,
 					end_time: request.payload.end_time
-				});*/
+				});
 		}
 	},
 	{
 		method: "GET",
-		path: "/members/teams/{m_id}",
+		path: "/members/{m_id}/teams",
 		config: {
 			description: "Retrieve all teams that a member has joined"
 		},
@@ -129,21 +128,37 @@ server.route([
 				.eager('teams');
 		}
 	},
-	{
-		//NEEDS TO BE EDITED
+		{
 		method: "POST",
-		path: "/members/teams/{m_id}",
+		path: "/members/{m_id}/teams",
+		config: {
+			description: "Let a member create a team",
+		},
+		handler: async (request, h) => {
+			return knex('teams')
+				.insert({
+					t_id: request.payload.t_id,
+					name: request.payload.name
+				});
+		}
+	},
+	{
+		method: "POST",
+		path: "/members/{m_id}/teams/{t_id}",
 		config: {
 			description: "Let a member join a team",
 		},
 		handler: async (request, h) => {
-			return "teams post";
+			return knex('member_team')
+				.insert({
+					m_id: request.payload.m_id,
+					t_id: request.payload.t_id
+				});
 		}
 	},
 	{
-		//CHANGE T_ID TO PARAMETER
 		method: "DELETE",
-		path: "/members/teams/{m_id}",
+		path: "/members/{m_id}/teams/{t_id}",
 		config: {
 			description: "Remove a member from a team",
 		},
@@ -151,14 +166,13 @@ server.route([
 			return MemberTeam.query()
 				.select('*')
 				.where('m_id', request.params.m_id)
-				.andWhere('t_id', 2)
+				.andWhere('t_id', request.params.t_id)
 				.del();
-			 //"teams DELETE";
 		}
 	},
 	{
 		method: "GET",
-		path: "/members/commitments/{m_id}",
+		path: "/members/{m_id}/commitments",
 		config: {
 			description: "Retrieve all commitments that a member has"
 		},
@@ -172,7 +186,7 @@ server.route([
 	{
 		//NEEDS TO BE EDITED
 		method: "POST",
-		path: "/members/commitments/{m_id}",
+		path: "/members/{m_id}/commitments",
 		config: {
 			description: "Let a member create a commitment",
 		},
@@ -183,24 +197,27 @@ server.route([
 	{
 		//NEEDS HAVE C_ID BE PARAM AND HAVE UPDATE BE EVERYTHING
 		method: "PUT",
-		path: "/members/commitments/{m_id}",
+		path: "/members/{m_id}/commitments/{c_id}",
 		config: {
 			description: "Let a member change a commitment",
 		},
 		handler: async (request, h) => {
 			return knex('commitments')
+				.select('*')
 				.where('m_id', request.params.m_id)
-				.andWhere('c_id', 30)
-				.update('repeat_unit', 'W');
-
-			//return 'hey';
-			//return "commitment put";
+				.andWhere('c_id', request.params.c_id);/*
+				.update({
+					start_time: request.payload.start_time,
+					end_time: request.payload.end_time,
+					repeat_unit: request.payload.repeat_unit,
+					terminate_date: request.payload.terminate_date
+				});*/
 		}
 	},
 	{
 		//CHANGE C_ID TO PARAMETER
 		method: "DELETE",
-		path: "/members/commitments/{m_id}",
+		path: "/members/{m_id}/commitments",
 		config: {
 			description: "Let a member delete a commitment",
 		},
