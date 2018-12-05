@@ -19,8 +19,12 @@ const { Model } = require('objection');
 Model.knex(knex);
 const Members = require('./src/ORM/Members');
 const Teams = require('./src/ORM/Teams');
-const Corehours = require('./src/ORM/Corehours')
-
+const Corehours = require('./src/ORM/Corehours');
+const MemberTeam = require('./src/ORM/MemberTeam');
+const Commitments = require('./src/ORM/Commitments');
+const Activities = require('./src/ORM/Activities');
+const MemberProposedTime = require('./src/ORM/MemberProposedTime');
+const ProposedTimes = require('./src/ORM/ProposedTimes');
 
 // setting up server
 const Joi = require("joi"); 	//Input validation
@@ -51,16 +55,6 @@ server.route([
 			}
 			else
 				return rows[0].m_id;
-		}
-	},
-	{
-		method: "GET",
-		path: "/hello",
-		config: {
-			description: "a test",
-		},
-		handler: async (request, h) => {
-			return 'hello world';
 		}
 	},
 	{
@@ -96,36 +90,128 @@ server.route([
 			description: "Get one member's core-hours",
 		},
 		handler: async (request, h) => {
-			return Corehours.query()
+			return Corehours
+				.query()
 				.select("*")
 				.where("m_id", request.params.m_id);
 		}
 	},
-
-	/*
+	{
+		//NEEDS TO BE EDITED
+		method: "PUT",
+		path: "/members/core-hours/{m_id}",
+		config: {
+			description: "Change a member's core-hours",
+		},
+		handler: async (request, h) => {
+			return "core-hours put";
+			/*Corehours
+				.query()
+				.where("ch_id", request.payload.ch_id);
+				.update({
+					weekday: request.payload.weekday,
+					start_time: request.payload.start_time,
+					end_time: request.payload.end_time
+				});*/
+		}
+	},
 	{
 		method: "GET",
-		path: "/members/{m_id}/teams",
+		path: "/members/teams/{m_id}",
 		config: {
 			description: "Retrieve all teams that a member has joined"
 		},
 		handler: async (request, h) => {
-			return 0;
+			return MemberTeam
+				.query()
+				.select("*")
+				.where("m_id", request.params.m_id)
+				.eager('teams');
 		}
 	},
-	*/
-	/* New route template
 	{
-		method: "",
-		path: "",
+		//NEEDS TO BE EDITED
+		method: "POST",
+		path: "/members/teams/{m_id}",
 		config: {
-			description: ""
+			description: "Let a member join a team",
 		},
 		handler: async (request, h) => {
-			return 0;
+			return "teams post";
 		}
 	},
-	*/
+	{
+		//CHANGE T_ID TO PARAMETER
+		method: "DELETE",
+		path: "/members/teams/{m_id}",
+		config: {
+			description: "Remove a member from a team",
+		},
+		handler: async (request, h) => {
+			return MemberTeam.query()
+				.select('*')
+				.where('m_id', request.params.m_id)
+				.andWhere('t_id', 2)
+				.del();
+			 //"teams DELETE";
+		}
+	},
+	{
+		method: "GET",
+		path: "/members/commitments/{m_id}",
+		config: {
+			description: "Retrieve all commitments that a member has"
+		},
+		handler: async (request, h) => {
+			return Commitments
+				.query()
+				.select("*")
+				.where("m_id", request.params.m_id);
+		}
+	},
+	{
+		//NEEDS TO BE EDITED
+		method: "POST",
+		path: "/members/commitments/{m_id}",
+		config: {
+			description: "Let a member create a commitment",
+		},
+		handler: async (request, h) => {
+			return "commitment post";
+		}
+	},
+	{
+		//NEEDS HAVE C_ID BE PARAM AND HAVE UPDATE BE EVERYTHING
+		method: "PUT",
+		path: "/members/commitments/{m_id}",
+		config: {
+			description: "Let a member change a commitment",
+		},
+		handler: async (request, h) => {
+			return knex('commitments')
+				.where('m_id', request.params.m_id)
+				.andWhere('c_id', 30)
+				.update('repeat_unit', 'W');
+
+			//return 'hey';
+			//return "commitment put";
+		}
+	},
+	{
+		//CHANGE C_ID TO PARAMETER
+		method: "DELETE",
+		path: "/members/commitments/{m_id}",
+		config: {
+			description: "Let a member delete a commitment",
+		},
+		handler: async (request, h) => {
+			return Commitments.query()
+				.select('*')
+				.where('m_id', request.params.m_id)
+				.andWhere('c_id', 20)
+				.del();
+		}
+	}
 	/* New route template
 	{
 		method: "",

@@ -51,8 +51,8 @@ async function generateSchema() {
 	await knex.schema.createTable('commitments', table => {
 		table.increments('c_id');
 		table.integer('m_id');
-		table.timestamp('start_time', true); // no timezone
-		table.timestamp('end_time', true); // no timezone
+		table.time('start_time'); // no timezone
+		table.time('end_time'); // no timezone
 		table.enu('repeat_unit', ['D','W','M','Y']);
 		table.date('terminate_date');
 		table.foreign('m_id').references('m_id').inTable('members');
@@ -230,8 +230,27 @@ async function insert() {
 			}
 		]
 	);
+	await knex('commitments').insert(
+		[
+			{
+				c_id: 40,
+				m_id: 1,
+				start_time: "5:00",
+				end_time: "8:00",
+				repeat_unit: 'D',
+				terminate_date: "04/27/2010"
+			},
+			{
+				c_id: 30,
+				m_id: 1,
+				start_time: "6:00",
+				end_time: "9:00",
+				repeat_unit: 'D',
+				terminate_date: "04/27/2010"
+			}
+		]
+	);
 }
-
 
 async function query(tableName) {
 	let query = await knex.select("*").from(tableName);
