@@ -18,6 +18,22 @@ class Teams extends Model {
 					},
 					to: 'members.m_id'
 				}
+			},
+			member_team: {
+				relation: Model.HasManyRelations,
+				modelClass: require('./MemberTeam'),
+				join: {
+					from: 'teams.t_id',
+					to: 'member_team.t_id'
+				}
+			},
+			activities: {
+				relation: Model.HasManyRelations,
+				modelClass: require('./Activities'),
+				join: {
+					from: 'teams.t_id',
+					to: 'activities.t_id'
+				}
 			}
 		};
 	}
