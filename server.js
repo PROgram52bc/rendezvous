@@ -90,27 +90,8 @@ server.route([
 		}
 	},
 	{
-		method: "POST",
-		path: "/login",
-		config: {
-			description: "Allow member to log in.",
-			validate: {
-				payload: {
-					email: Joi.string().email().required(),
-					password: Joi.string().required()
-				}
-			}
-		},
-		handler: async (request, h) => {
-			return Members.query()
-				.select("m_id")
-				.where("email", request.payload.email)
-				.andWhere("password", request.payload.password);
-		}
-	},
-	{
 		method: "GET",
-		path: "/members/core-hours/{m_id}",
+		path: "/members/{m_id}/core-hours",
 		config: {
 			description: "Get one member's core-hours",
 		},
