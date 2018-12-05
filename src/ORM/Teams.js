@@ -20,7 +20,7 @@ class Teams extends Model {
 				}
 			},
 			member_team: {
-				relation: Model.HasManyRelations,
+				relation: Model.HasManyRelation,
 				modelClass: require('./MemberTeam'),
 				join: {
 					from: 'teams.t_id',
@@ -28,7 +28,7 @@ class Teams extends Model {
 				}
 			},
 			activities: {
-				relation: Model.HasManyRelations,
+				relation: Model.HasManyRelation,
 				modelClass: require('./Activities'),
 				join: {
 					from: 'teams.t_id',

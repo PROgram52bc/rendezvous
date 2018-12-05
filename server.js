@@ -95,21 +95,6 @@ server.route([
 				.where("m_id", request.params.m_id);
 		}
 	},
-
-	/*
-	{
-		method: "GET",
-		path: "/members/core-hours/{m_id}",
-		config: {
-			description: "Get one member's core-hours",
-		},
-		handler: async (request, h) => {
-			return Corehours
-				.query()
-				.select("*")
-				.where("m_id", request.params.m_id);
-		}
-	},
 	{
 		//NEEDS TO BE EDITED
 		method: "PUT",
