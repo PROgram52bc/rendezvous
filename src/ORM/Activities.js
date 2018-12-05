@@ -23,7 +23,7 @@ class Activities extends Model {
 				}
 			},
 			proposed_times: {
-				relation: Model.HasManyRelations,
+				relation: Model.HasManyRelation,
 				modelClass: require('./ProposedTimes'),
 				join: {
 					from: 'activities.a_id',
