@@ -148,11 +148,30 @@ server.route([
 			description: "Let a member create a team",
 		},
 		handler: async (request, h) => {
-			return knex('teams')
-				.insert({
-					t_id: request.payload.t_id,
-					name: request.payload.name
-				});
+			let result = await Teams.query().where('name', request.payload.name);
+			console.log("result")
+			console.log(result)
+			if (result.length != 0) throw Boom.badRequest(`Team ${request.payload.name} already exists`);
+			try {
+				let newTeam = await Teams.query()
+					.insert({
+						name: request.payload.name
+					}).returning('*');
+				console.log("newTeam");
+				console.log(newTeam);
+				let t_id = newTeam.t_id;
+				await MemberTeam.query()
+					.insert({
+						m_id: request.params.m_id,
+						t_id
+					}).returning('*');
+//				MemberTeam.query().
+//					.insert({
+//						t_id:
+//					})
+				return t_id;
+			}
+			catch(err){return `Error creating team: ${err.message}`}
 		}
 	},
 	{
@@ -164,8 +183,8 @@ server.route([
 		handler: async (request, h) => {
 			return knex('member_team')
 				.insert({
-					m_id: request.payload.m_id,
-					t_id: request.payload.t_id
+					m_id: request.params.m_id,
+					t_id: request.params.t_id
 				});
 		}
 	},
