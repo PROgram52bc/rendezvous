@@ -128,7 +128,19 @@ server.route([
 				.eager('teams');
 		}
 	},
-		{
+	{
+		method: "GET",
+		path: "/teams",
+		config: {
+			description: "Retrieve all teams that exist"
+		},
+		handler: async (request, h) => {
+			return Teams
+				.query()
+				.select("*")
+		}
+	},
+	{
 		method: "POST",
 		path: "/members/{m_id}/teams",
 		config: {
