@@ -24,8 +24,21 @@ export default {
 		message: 'Please first log in',
 		userinfo: {}
 	}},
+	created: function() {
+		if (this.$root.currentUserId)
+			this.getUserInfo(this.$root.currentUserId);
+	},
 	components: {
 		FormField
+	},
+	watch: {
+		'$root.currentUserId': function(newVal, oldVal) {
+			if (newVal === null)
+			{
+				this.message = 'Please first log in';
+				this.userinfo = {};
+			}
+		}
 	},
 	methods: {
 		getUserInfo: async function(id){
@@ -47,7 +60,9 @@ export default {
 				this.$root.currentUserId = data;
 			}
 			catch(err) { 
-				this.message = err.response.data.message ? err.response.data.message : err;
+				this.message = (err.response || 
+					err.response.data || 
+					err.response.data.message) ? err.response.data.message : err;
 			}
 			this.getUserInfo(this.$root.currentUserId);
 		}

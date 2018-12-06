@@ -1,6 +1,8 @@
 // importing vue components
 import Login from './views/Login.vue';
 import Teams from './views/Teams.vue';
+import Commitments from './views/Commitments.vue';
+import CourHours from './views/CourHours.vue';
 
 
 // registering vue router
@@ -8,6 +10,8 @@ import VueRouter from 'vue-router';
 const routes = [ 
 	{ name: 'login', path: '/', component: Login },
 	{ name: 'teams', path: '/teams', component: Teams },
+	{ name: 'commitments', path: '/commitments', component: Commitments },
+	{ name: 'cour-hours', path: '/cour-hours', component: CourHours },
 	// template
 	// { name: 'login', path: '/', component: Login },
 ]
