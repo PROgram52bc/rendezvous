@@ -125,7 +125,8 @@ server.route([
 				.query()
 				.select("*")
 				.where("m_id", request.params.m_id)
-				.eager('teams');
+				.eager('teams')
+				.map(obj=>obj.teams); // this is cool...
 		}
 	},
 	{
