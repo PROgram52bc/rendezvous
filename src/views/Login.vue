@@ -1,6 +1,6 @@
 <template>
 	<div class="column is-6 is-offset-3">
-		<div v-if="this.$root.currentUserId == null">
+		<div v-if="this.$root.currentUserId === null">
 			<div class="notification">{{message}}</div>
 			<form>
 				<form-field v-model="email" label="Email Address" type="text" name="email" placeholder="Enter your email"></form-field>

@@ -11,16 +11,18 @@
 import TeamItem from "./TeamItem.vue"
 const axios = require('axios');
 export default {
-	data: function() { return { 
+	data: function() { return {
 		teams: []
 	}},
 	mounted: async function() {
-		let rawTeams = await axios.get(`/members/${this.$root.currentUserId}/teams`);
+		let rawTeams = await axios.get('/teams');
+		let myTeams = await axios.get(`/members/${this.$root.currentUserId}/teams`);
 		rawTeams.data.forEach((team)=>{
+			let queryTeamId = team.t_id;
 			this.teams.push({
 				name: team.name,
 				id: team.t_id,
-				joined: true
+				joined: myTeams.data.map((obj)=>obj.t_id).includes(queryTeamId)
 			})
 		})
 	},

@@ -19,32 +19,11 @@
 				  v-if="$root.currentUserId"
 				  v-for="(item, key) in menuItems" 
 				  v-bind:key="key"
-				  v-bind:to="item.name"
+				  v-bind:to="{name: item.name}"
 				  v-bind:class="item.active ? 'is-active' : null"
 				  v-on:click.native="toggleActive(item.name)"
 				  class="navbar-item" 
 				  >{{item.label}}</router-link>
-					<!--
-					<router-link ref="home-button"
-				  v-on:click.native="changeRoute('home-button')" 
-				  class="navbar-item is-active"
-				  :to="{name: 'login'}">Home</router-link>
-					<router-link ref="teams-button"
-				  v-on:click.native="changeRoute($event.target.ref)" 
-				  v-if="$root.currentUserId"
-				  class="navbar-item"
-				  :to="{name: 'teams'}">My Team</router-link>
-					<router-link ref="commitments-button"
-				  v-on:click.native="changeRoute($event.target.ref)" 
-				  v-if="$root.currentUserId"
-				  class="navbar-item"
-				  :to="{name: 'commitments'}">Commitments</router-link>
-					<router-link ref="cour-hours-button" 
-				  v-on:click.native="changeRoute($event.target.ref)" 
-				  v-if="$root.currentUserId" 
-				  class="navbar-item" 
-				  :to="{name: 'cour-hours'}">Core Hours</router-link>
-					-->
 				</div>
 				<div class="navbar-end">
 					<a v-if="$root.currentUserId !== null" class="navbar-item" v-on:click="logOut">Log Out</a>

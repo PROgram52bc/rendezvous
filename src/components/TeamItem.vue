@@ -15,10 +15,10 @@
 	</div>
 </template>
 <script>
+const axios = require('axios');
 export default {
 	props: { 
 		team: {
-			required: true
 			/*
 			name: String,
 			id: Number,
@@ -37,7 +37,7 @@ export default {
 			console.log(`Team id to join: ${this.team.id}`)
 			console.log(`Member id : ${this.$root.currentUserId}`)
 			console.log(`Joined: ${this.joined}`)
-			// axios.post()
+			axios.post(`/members/${this.$root.currentUserId}/teams/${this.team.id}`);
 			// if succeeded
 			this.joined = true;
 		}
