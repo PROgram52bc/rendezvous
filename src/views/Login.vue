@@ -5,7 +5,7 @@
 			<form>
 				<form-field v-model="email" label="Email Address" type="text" name="email" placeholder="Enter your email"></form-field>
 				<form-field v-model="password" label="Password" type="password" name="password" placeholder="Enter your password"></form-field>
-				<button class="button is-primary" type="submit" v-on:click.prevent="login" v-bind:disabled="email=='' || password==''">Login</button>
+				<button class="button is-primary" type="submit" v-on:click.prevent="handleLogin" v-bind:disabled="email=='' || password==''">Login</button>
 			</form>
 		</div>
 		<p v-else>Welcome, {{userinfo.firstname}} {{userinfo.lastname}} </p>
@@ -44,14 +44,14 @@ export default {
 		getUserInfo: async function(id){
 			try {
 				console.log(id);
-				let result = await axios.get(`/members/1`);
+				let result = await axios.get(`/members/${id}`);
 				this.userinfo = result.data[0];
 			}
 			catch(err) {
 				console.log(`Failed to get userinfo: ${err}`);
 			}
 		},
-		login: async function() {
+		handleLogin: async function() {
 			try {
 				let { data } = await axios.post('/login', {
 					email: this.email,
@@ -60,9 +60,7 @@ export default {
 				this.$root.currentUserId = data;
 			}
 			catch(err) { 
-				this.message = (err.response || 
-					err.response.data || 
-					err.response.data.message) ? err.response.data.message : err;
+				this.message = err.response.data.message;
 			}
 			this.getUserInfo(this.$root.currentUserId);
 		}

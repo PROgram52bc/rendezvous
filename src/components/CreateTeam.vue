@@ -17,8 +17,10 @@ export default {
 				name: this.name
 			}).then((teamId)=>{
 				// success
+				console.log(teamId);
+				this.$router.push({name: 'team-details', params: {id: teamId.data}});
 			}).catch((err)=>{
-				// failed
+				console.log(err.response.data.message);
 			})
 		}
 	},

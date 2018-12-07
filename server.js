@@ -142,6 +142,20 @@ server.route([
 		}
 	},
 	{
+		method: "GET",
+		path: "/teams/{t_id}",
+		config: {
+			description: "Retrieve info about a specific team"
+		},
+		handler: async (request, h) => {
+			return Teams
+				.query()
+				.select("*")
+				.where('t_id', request.params.t_id)
+				.eager('members');
+		}
+	},
+	{
 		method: "POST",
 		path: "/members/{m_id}/teams",
 		config: {
@@ -151,7 +165,7 @@ server.route([
 			let result = await Teams.query().where('name', request.payload.name);
 			console.log("result")
 			console.log(result)
-			if (result.length != 0) throw Boom.badRequest(`Team ${request.payload.name} already exists`);
+			if (result.length != 0) return Boom.badRequest(`Team '${request.payload.name}' already exists`, 400);
 			try {
 				let newTeam = await Teams.query()
 					.insert({
@@ -181,11 +195,16 @@ server.route([
 			description: "Let a member join a team",
 		},
 		handler: async (request, h) => {
-			return knex('member_team')
+			let result = await MemberTeam.query()
+				.select('*')
+				.where('m_id', request.params.m_id)
+				.andWhere('t_id', request.params.t_id);
+			if (result.length != 0) return Boom.badRequest(`member is already in the team`, 400);
+			return await MemberTeam.query()
 				.insert({
 					m_id: request.params.m_id,
 					t_id: request.params.t_id
-				});
+				}).returning('*');
 		}
 	},
 	{
@@ -195,7 +214,7 @@ server.route([
 			description: "Remove a member from a team",
 		},
 		handler: async (request, h) => {
-			return MemberTeam.query()
+			return await MemberTeam.query()
 				.select('*')
 				.where('m_id', request.params.m_id)
 				.andWhere('t_id', request.params.t_id)

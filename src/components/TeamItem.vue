@@ -2,7 +2,9 @@
 	<div class="level">
 		<div class="level-left">
 			<div class="level-item">
-				<p>{{team.name}}</p>
+				<a v-on:click='handleTeamDetails'>
+					{{team.name}}
+				</a>
 			</div>
 		</div>
 		<div class="level-right">
@@ -40,6 +42,9 @@ export default {
 			axios.post(`/members/${this.$root.currentUserId}/teams/${this.team.id}`);
 			// if succeeded
 			this.joined = true;
+		},
+		handleTeamDetails() {
+			this.$router.push({name: 'team-details', params: {id: this.team.id}});
 		}
 	}
 }
