@@ -17,6 +17,9 @@
 			<p class="subtitle">Team ID: {{$route.params.id}}</p>
 			<p class="subtitle">User ID: {{$root.currentUserId}}</p>
 			<p class="subtitle">Joined: {{joined}}</p>
+			<div class="level"> <p class="level-item title has-text-centered">Members</p> </div>
+			<p class="subtitle" v-for="member in teamInfo.members">{{member.m_id}}: {{member.firstname}}</p>
+
 		</div>
 	</div>
 </template>
