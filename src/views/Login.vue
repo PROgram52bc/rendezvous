@@ -8,7 +8,14 @@
 				<button class="button is-primary" type="submit" v-on:click.prevent="handleLogin" v-bind:disabled="email=='' || password==''">Login</button>
 			</form>
 		</div>
-		<p v-else>Welcome, {{userinfo.firstname}} {{userinfo.lastname}} </p>
+		<div v-else class="section">
+			<div class="container">
+				<p class="subtitle is-2">
+				Welcome! 
+				</p>
+				<p class="title is-4"><strong>{{userinfo.firstname}} {{userinfo.lastname}}</strong></p>
+			</div>
+		</div>
 	</div>
 
 </template>

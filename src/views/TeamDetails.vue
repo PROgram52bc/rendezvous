@@ -1,21 +1,23 @@
 <template>
-	<div>
-		<nav class="level">
-			<div class="level-left">
-				<div class="level-item">
-					<p class="title">{{teamInfo.name}}</p>
+	<div class="section">
+		<div class="container">
+			<nav class="level">
+				<div class="level-left">
+					<div class="level-item">
+						<p class="title">{{teamInfo.name}}</p>
+					</div>
 				</div>
-			</div>
-			<div class="level-right">
-				<div class="level-item">
-					<button v-if="!joined" class="button is-primary" v-on:click="handleJoin">Join Team</button>
-					<button v-else class="button is-danger" v-on:click="handleLeave">Leave Team</button>
+				<div class="level-right">
+					<div class="level-item">
+						<button v-if="!joined" class="button is-primary" v-on:click="handleJoin">Join Team</button>
+						<button v-else class="button is-danger" v-on:click="handleLeave">Leave Team</button>
+					</div>
 				</div>
-			</div>
-		</nav>
-		<p>Team ID: {{$route.params.id}}</p>
-		<p>User ID: {{$root.currentUserId}}</p>
-		<p>Joined: {{joined}}</p>
+			</nav>
+			<p class="subtitle">Team ID: {{$route.params.id}}</p>
+			<p class="subtitle">User ID: {{$root.currentUserId}}</p>
+			<p class="subtitle">Joined: {{joined}}</p>
+		</div>
 	</div>
 </template>
 <script>
