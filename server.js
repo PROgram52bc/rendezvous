@@ -5,10 +5,10 @@
 const knex = require('knex')({
 	client: 'pg',
     connection: {
-        host: "faraday.cse.taylor.edu",
-        database: "david_deng",
-		user: "david_deng",
-		password: "wowaqufa"
+        host: "35.193.144.17",
+        database: "postgres",
+		user: "postgres",
+		password: "19990430deng"
     },
 	debug: true
 });
